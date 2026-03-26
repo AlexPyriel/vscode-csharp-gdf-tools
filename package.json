@@ -1,0 +1,150 @@
+{
+  "name": "vscode-csharp-gdf-tools",
+  "displayName": "C# GDF Tools",
+  "description": "C# file generation tools for VS Code.",
+  "icon": "GDF.png",
+  "version": "2.1.0",
+  "publisher": "gdf",
+  "author": "Game Dev Family",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexPyriel/vscode-csharp-gdf-tools"
+  },
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:csharpGdf.newClass",
+    "onCommand:csharpGdf.newInterface",
+    "onCommand:csharpGdf.newRecord",
+    "onCommand:csharpGdf.newStruct",
+    "onCommand:csharpGdf.newEnum",
+    "onCommand:csharpGdf.newMonoBehaviour",
+    "onCommand:csharpGdf.newScriptableObject",
+    "onLanguage:csharp"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "csharpGdf.newClass",
+        "title": "New C# Class"
+      },
+      {
+        "command": "csharpGdf.newInterface",
+        "title": "New C# Interface"
+      },
+      {
+        "command": "csharpGdf.newRecord",
+        "title": "New C# Record"
+      },
+      {
+        "command": "csharpGdf.newStruct",
+        "title": "New C# Struct"
+      },
+      {
+        "command": "csharpGdf.newEnum",
+        "title": "New C# Enum"
+      },
+      {
+        "command": "csharpGdf.newMonoBehaviour",
+        "title": "New C# MonoBehaviour"
+      },
+      {
+        "command": "csharpGdf.newScriptableObject",
+        "title": "New C# ScriptableObject"
+      }
+    ],
+    "submenus": [
+      {
+        "id": "csharpGdf.add",
+        "label": "Add"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "submenu": "csharpGdf.add",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation@3"
+        }
+      ],
+      "csharpGdf.add": [
+        {
+          "command": "csharpGdf.newClass",
+          "group": "1_types@1"
+        },
+        {
+          "command": "csharpGdf.newInterface",
+          "group": "1_types@2"
+        },
+        {
+          "command": "csharpGdf.newRecord",
+          "group": "1_types@3"
+        },
+        {
+          "command": "csharpGdf.newStruct",
+          "group": "1_types@4"
+        },
+        {
+          "command": "csharpGdf.newEnum",
+          "group": "1_types@5"
+        },
+        {
+          "command": "csharpGdf.newMonoBehaviour",
+          "group": "2_unity@1"
+        },
+        {
+          "command": "csharpGdf.newScriptableObject",
+          "group": "2_unity@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "C# GDF Tools",
+      "properties": {
+        "csharpGdf.rootNamespace": {
+          "type": "string",
+          "default": "",
+          "description": "Optional namespace prefix used when no asmdef-based namespace can be resolved."
+        },
+        "csharpGdf.namespaceSource": {
+          "type": "string",
+          "default": "hybrid",
+          "enum": [
+            "hybrid",
+            "asmdef",
+            "folder"
+          ],
+          "description": "Namespace resolution strategy."
+        },
+        "csharpGdf.useFileScopedNamespace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Generate namespaces using file-scoped syntax."
+        },
+        "csharpGdf.scriptableObjectCreateAssetMenu": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include a default CreateAssetMenu attribute in generated ScriptableObject files."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "package:vsix": "vsce package"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.6.2",
+    "@types/node": "^20.16.11",
+    "@types/vscode": "^1.95.0",
+    "typescript": "^5.6.3"
+  }
+}

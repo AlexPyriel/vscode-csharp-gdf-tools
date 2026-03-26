@@ -1,0 +1,56 @@
+# C# GDF Tools
+
+[![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/gdf.vscode-csharp-gdf-tools?label=Marketplace&color=007ACC)](https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools)
+
+C# GDF Tools helps you create C# files faster in VS Code and gives each new file the namespace you actually expect.
+
+> Install from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools).
+
+It is built for Unity-style project structures, regular C# folders, and mixed setups that use `.asmdef` files.
+
+## Features
+
+### Create C# files from Explorer
+
+Right-click a folder in the Explorer and use the `Add` submenu to create:
+
+- `New C# Class`
+- `New C# Interface`
+- `New C# Record`
+- `New C# Struct`
+- `New C# Enum`
+- `New C# MonoBehaviour`
+- `New C# ScriptableObject`
+
+Every command:
+
+- asks for a type name
+- creates the `.cs` file in the selected folder
+- generates the matching namespace automatically
+- opens the new file immediately in the editor
+
+This is especially useful in Unity projects where you want to create scripts directly from folder structure without fixing namespaces by hand afterward.
+
+## Namespace Resolution
+
+The default mode is `hybrid`:
+
+1. Use the nearest applicable `.asmdef` name as the namespace base.
+2. If no `.asmdef` applies, resolve from the file's real folder path relative to the workspace root.
+3. Prefix the result with `csharpGdf.rootNamespace` when configured.
+
+## Settings
+
+Available settings:
+
+- `csharpGdf.rootNamespace`: optional namespace prefix
+- `csharpGdf.namespaceSource`: resolution strategy, one of `hybrid`, `asmdef`, `folder`
+- `csharpGdf.useFileScopedNamespace`: generate file-scoped namespaces
+- `csharpGdf.scriptableObjectCreateAssetMenu`: include `CreateAssetMenu` in generated `ScriptableObject` files
+
+## Why Use It
+
+- Faster script creation directly from the folder you are working in
+- Predictable namespaces for Unity and non-Unity C# projects
+- Better support for real project structure instead of hand-maintained namespace rules
+- Cleaner workflow for teams that organize code by folders or `.asmdef` boundaries

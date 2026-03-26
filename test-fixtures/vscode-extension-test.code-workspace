@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "TestProject"
+    }
+  ],
+  "settings": {
+    "csharpGdf.rootNamespace": "Demo.Game",
+    "csharpGdf.namespaceSource": "hybrid",
+    "csharpGdf.useFileScopedNamespace": false,
+    "csharpGdf.scriptableObjectCreateAssetMenu": true
+  }
+}
