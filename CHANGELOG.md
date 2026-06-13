@@ -2,6 +2,13 @@
 
 All notable changes to **C# GDF Tools** are documented in this file.
 
+## [2.3.0]
+
+### XML doc rendering improvements
+- Added a 📖 toggle button in the editor title bar for C# files — render documentation with a click, no shortcut required.
+- New `csharpGdf.docRender.renderByDefault` setting renders documentation automatically when a C# file is opened (applied once per document, so a manual toggle-off is preserved).
+- `<inheritdoc/>` resolution now retries with backoff (~30s) to survive a cold-starting C# language server, so auto-render fills in inherited documentation once the server is ready.
+
 ## [2.2.0]
 
 ### Render XML documentation comments
@@ -29,5 +36,6 @@ All notable changes to **C# GDF Tools** are documented in this file.
 - ScriptableObject files include a `[CreateAssetMenu]` attribute by default (toggle with `csharpGdf.scriptableObjectCreateAssetMenu`).
 - Optional file-scoped namespaces via `csharpGdf.useFileScopedNamespace`.
 
+[2.3.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.2.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.1.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools

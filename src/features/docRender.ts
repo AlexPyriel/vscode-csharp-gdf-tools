@@ -17,6 +17,7 @@ interface Segment {
 
 interface RenderManager {
   toggle(editor: vscode.TextEditor): void;
+  ensureRendered(editor: vscode.TextEditor): void;
   refresh(editor: vscode.TextEditor): void;
   dispose(): void;
 }
@@ -36,11 +37,36 @@ export function registerDocRenderCommands(context: vscode.ExtensionContext): voi
     })
   );
 
+  // Auto-render a C# document the first time it is seen, when enabled. Tracking
+  // handled documents means a manual toggle-off is not undone on tab switches.
+  const autoHandled = new Set<string>();
+  function maybeAutoRender(editor: vscode.TextEditor): void {
+    if (editor.document.languageId !== "csharp") {
+      return;
+    }
+    const key = editor.document.uri.toString();
+    if (autoHandled.has(key)) {
+      return;
+    }
+    autoHandled.add(key);
+    const renderByDefault = vscode.workspace
+      .getConfiguration("csharpGdf")
+      .get<boolean>("docRender.renderByDefault", false);
+    if (renderByDefault) {
+      manager.ensureRendered(editor);
+    }
+  }
+
+  for (const editor of vscode.window.visibleTextEditors) {
+    maybeAutoRender(editor);
+  }
+
   // Decorations live per-editor, so re-apply when a rendered document becomes
-  // visible again (split, tab switch, etc.).
+  // visible again (split, tab switch, etc.); also auto-render newly opened files.
   context.subscriptions.push(
     vscode.window.onDidChangeVisibleTextEditors(editors => {
       for (const editor of editors) {
+        maybeAutoRender(editor);
         manager.refresh(editor);
       }
     })
@@ -190,14 +216,15 @@ function createRenderManager(): RenderManager {
 
   async function resolveInherited(editor: vscode.TextEditor, member: MemberRef, docLine: number): Promise<void> {
     const key = editor.document.uri.toString();
-    const maxAttempts = 5;
+    const maxAttempts = 10;
     let resolved: string | null = null;
     try {
       // Resolution depends on the C# language server, which may still be warming up
-      // right after a reload. Retry a few times before giving up.
+      // right after opening a solution. Retry with backoff (~30s total) before
+      // giving up, so auto-render on a cold start still fills inheritdoc in.
       for (let attempt = 0; attempt < maxAttempts && !resolved; attempt++) {
         if (attempt > 0) {
-          await new Promise(done => setTimeout(done, 1500));
+          await new Promise(done => setTimeout(done, Math.min(attempt * 1000, 4000)));
         }
         try {
           // First ask the language server (hover); if it does not resolve the
@@ -242,6 +269,20 @@ function createRenderManager(): RenderManager {
       // server was still warming up on a previous attempt).
       inheritCache.clear();
       moveCursorOffDocLines(editor);
+      applyEditor(editor);
+    },
+
+    ensureRendered(editor: vscode.TextEditor): void {
+      if (!isEnabled()) {
+        return;
+      }
+
+      const key = editor.document.uri.toString();
+      if (renderedDocuments.has(key)) {
+        return;
+      }
+
+      renderedDocuments.add(key);
       applyEditor(editor);
     },
 

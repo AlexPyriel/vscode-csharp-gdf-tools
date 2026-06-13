@@ -33,7 +33,7 @@ This is especially useful in Unity projects where you want to create scripts dir
 
 ### Render XML documentation comments
 
-Toggle a clean, in-editor rendering of `///` XML documentation comments with **`Shift+Cmd+R`** (macOS) / **`Shift+Ctrl+R`** (Windows/Linux), or from the editor context menu / Command Palette (*C# GDF Tools: Toggle XML Doc Rendering*).
+Toggle a clean, in-editor rendering of `///` XML documentation comments with **`Shift+Cmd+R`** (macOS) / **`Shift+Ctrl+R`** (Windows/Linux), the 📖 button in the editor title bar, the editor context menu, or the Command Palette (*C# GDF Tools: Toggle XML Doc Rendering*). Enable `csharpGdf.docRender.renderByDefault` to render automatically when a C# file is opened.
 
 When rendered:
 
@@ -60,6 +60,7 @@ Available settings:
 - `csharpGdf.scriptableObjectCreateAssetMenu`: include `CreateAssetMenu` in generated `ScriptableObject` files
 - `csharpGdf.docRender.enabled`: enable the Toggle XML Doc Rendering command
 - `csharpGdf.docRender.color`: color used for rendered documentation and the left rule
+- `csharpGdf.docRender.renderByDefault`: render documentation automatically when a C# file is opened
 
 ## Why Use It
 

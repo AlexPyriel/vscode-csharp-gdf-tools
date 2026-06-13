@@ -3,7 +3,7 @@
   "displayName": "C# GDF Tools",
   "description": "C# file generation tools for VS Code.",
   "icon": "GDF.png",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "publisher": "gdf",
   "author": "Game Dev Family",
   "license": "MIT",
@@ -63,7 +63,8 @@
       {
         "command": "csharpGdf.toggleDocRender",
         "title": "Toggle XML Doc Rendering",
-        "category": "C# GDF Tools"
+        "category": "C# GDF Tools",
+        "icon": "$(book)"
       }
     ],
     "keybindings": [
@@ -92,6 +93,13 @@
           "command": "csharpGdf.toggleDocRender",
           "when": "editorLangId == csharp",
           "group": "1_modification@10"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "csharpGdf.toggleDocRender",
+          "when": "editorLangId == csharp",
+          "group": "navigation"
         }
       ],
       "explorer/context": [
@@ -169,6 +177,11 @@
           "type": "string",
           "default": "#6A9955",
           "description": "Color used for rendered XML documentation comments and the left rule (any CSS color)."
+        },
+        "csharpGdf.docRender.renderByDefault": {
+          "type": "boolean",
+          "default": false,
+          "description": "Render XML documentation comments automatically when a C# file is opened."
         }
       }
     }
