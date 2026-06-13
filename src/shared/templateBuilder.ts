@@ -19,9 +19,23 @@ interface TemplateOptions {
 export function buildTemplate(options: TemplateOptions): string {
   const usingBlock = buildUsingBlock(options.kind);
   const namespaceBlock = buildNamespacePrefix(options.namespaceValue, options.useFileScopedNamespace);
-  const typeBody = buildTypeBody(options.kind, options.typeName);
   const namespaceSuffix = buildNamespaceSuffix(options.namespaceValue, options.useFileScopedNamespace);
+
+  // Inside a block-scoped namespace the type is one level deeper, so indent it.
+  const insideBlockNamespace = Boolean(options.namespaceValue) && !options.useFileScopedNamespace;
+  const typeBody = insideBlockNamespace
+    ? indentLines(buildTypeBody(options.kind, options.typeName), 4)
+    : buildTypeBody(options.kind, options.typeName);
+
   return `${usingBlock}${namespaceBlock}${typeBody}${namespaceSuffix}`;
+}
+
+function indentLines(text: string, spaces: number): string {
+  const pad = " ".repeat(spaces);
+  return text
+    .split("\n")
+    .map(line => (line.length > 0 ? pad + line : line))
+    .join("\n");
 }
 
 export function normalizeTypeNameForKind(rawValue: string, kind: CSharpTypeKind): string {

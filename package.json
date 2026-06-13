@@ -1,9 +1,9 @@
 {
   "name": "vscode-csharp-gdf-tools",
   "displayName": "C# GDF Tools",
-  "description": "C# file generation tools for VS Code.",
+  "description": "Fast C# file creation with folder-matching namespaces, plus in-editor XML documentation rendering — for regular C# and Unity projects.",
   "icon": "GDF.png",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "publisher": "gdf",
   "author": "Game Dev Family",
   "license": "MIT",
@@ -150,13 +150,18 @@
         },
         "csharpGdf.namespaceSource": {
           "type": "string",
-          "default": "hybrid",
+          "default": "folder",
           "enum": [
+            "folder",
             "hybrid",
-            "asmdef",
-            "folder"
+            "asmdef"
           ],
-          "description": "Namespace resolution strategy."
+          "enumDescriptions": [
+            "Namespace mirrors the folder path relative to the workspace root (matches the IDE0130 analyzer).",
+            "Use the nearest .asmdef name as the base, falling back to the folder path.",
+            "Use the nearest .asmdef name as the base only."
+          ],
+          "description": "Namespace resolution strategy. 'folder' matches the C# IDE0130 'namespace matches folder structure' analyzer."
         },
         "csharpGdf.useFileScopedNamespace": {
           "type": "boolean",

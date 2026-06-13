@@ -44,18 +44,24 @@ When rendered:
 
 ## Namespace Resolution
 
-The default mode is `hybrid`:
+The default mode is `folder`: the namespace mirrors the file's folder path relative to the workspace root. This matches the C# **IDE0130** analyzer (*"namespace does not match folder structure"*), so generated files stay warning-free and the analyzer keeps reporting genuinely misplaced namespaces.
 
-1. Use the nearest applicable `.asmdef` name as the namespace base.
-2. If no `.asmdef` applies, resolve from the file's real folder path relative to the workspace root.
-3. Prefix the result with `csharpGdf.rootNamespace` when configured.
+> In Unity projects the workspace root is the folder above `Assets`, so a file in `Assets/Project/Core` gets `Assets.Project.Core` — exactly what IDE0130 expects.
+
+Other strategies are available via `csharpGdf.namespaceSource`:
+
+- `folder` (default) — folder path relative to the workspace root.
+- `hybrid` — nearest `.asmdef` name as the base, falling back to the folder path.
+- `asmdef` — nearest `.asmdef` name as the base only.
+
+The result is prefixed with `csharpGdf.rootNamespace` when configured.
 
 ## Settings
 
 Available settings:
 
 - `csharpGdf.rootNamespace`: optional namespace prefix
-- `csharpGdf.namespaceSource`: resolution strategy, one of `hybrid`, `asmdef`, `folder`
+- `csharpGdf.namespaceSource`: resolution strategy, one of `folder` (default, IDE0130-compatible), `hybrid`, `asmdef`
 - `csharpGdf.useFileScopedNamespace`: generate file-scoped namespaces
 - `csharpGdf.scriptableObjectCreateAssetMenu`: include `CreateAssetMenu` in generated `ScriptableObject` files
 - `csharpGdf.docRender.enabled`: enable the Toggle XML Doc Rendering command

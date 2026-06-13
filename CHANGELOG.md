@@ -2,6 +2,14 @@
 
 All notable changes to **C# GDF Tools** are documented in this file.
 
+## [2.4.0]
+
+### Namespace generation
+- Default `csharpGdf.namespaceSource` is now `folder` — generated namespaces mirror the folder path relative to the workspace root and match the C# **IDE0130** analyzer (in Unity, files under `Assets/` get an `Assets.` prefix as the analyzer expects). `hybrid` and `asmdef` remain available.
+
+### Fixes
+- Generated files are now correctly indented: inside a block-scoped namespace the type and its body are indented by one level (all type kinds).
+
 ## [2.3.0]
 
 ### XML doc rendering improvements
@@ -36,6 +44,7 @@ All notable changes to **C# GDF Tools** are documented in this file.
 - ScriptableObject files include a `[CreateAssetMenu]` attribute by default (toggle with `csharpGdf.scriptableObjectCreateAssetMenu`).
 - Optional file-scoped namespaces via `csharpGdf.useFileScopedNamespace`.
 
+[2.4.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.3.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.2.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.1.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
