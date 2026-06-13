@@ -3,7 +3,7 @@
   "displayName": "C# GDF Tools",
   "description": "C# file generation tools for VS Code.",
   "icon": "GDF.png",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "publisher": "gdf",
   "author": "Game Dev Family",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "onCommand:csharpGdf.newEnum",
     "onCommand:csharpGdf.newMonoBehaviour",
     "onCommand:csharpGdf.newScriptableObject",
+    "onCommand:csharpGdf.toggleDocRender",
     "onLanguage:csharp"
   ],
   "main": "./dist/extension.js",
@@ -58,6 +59,19 @@
       {
         "command": "csharpGdf.newScriptableObject",
         "title": "New C# ScriptableObject"
+      },
+      {
+        "command": "csharpGdf.toggleDocRender",
+        "title": "Toggle XML Doc Rendering",
+        "category": "C# GDF Tools"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "csharpGdf.toggleDocRender",
+        "key": "shift+ctrl+r",
+        "mac": "shift+cmd+r",
+        "when": "editorFocus && editorLangId == csharp"
       }
     ],
     "submenus": [
@@ -67,6 +81,19 @@
       }
     ],
     "menus": {
+      "commandPalette": [
+        {
+          "command": "csharpGdf.toggleDocRender",
+          "when": "editorLangId == csharp"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "csharpGdf.toggleDocRender",
+          "when": "editorLangId == csharp",
+          "group": "1_modification@10"
+        }
+      ],
       "explorer/context": [
         {
           "submenu": "csharpGdf.add",
@@ -132,6 +159,16 @@
           "type": "boolean",
           "default": true,
           "description": "Include a default CreateAssetMenu attribute in generated ScriptableObject files."
+        },
+        "csharpGdf.docRender.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the Toggle XML Doc Rendering command (renders /// documentation comments as read-only formatted text)."
+        },
+        "csharpGdf.docRender.color": {
+          "type": "string",
+          "default": "#6A9955",
+          "description": "Color used for rendered XML documentation comments and the left rule (any CSS color)."
         }
       }
     }

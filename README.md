@@ -31,6 +31,17 @@ Every command:
 
 This is especially useful in Unity projects where you want to create scripts directly from folder structure without fixing namespaces by hand afterward.
 
+### Render XML documentation comments
+
+Toggle a clean, in-editor rendering of `///` XML documentation comments with **`Shift+Cmd+R`** (macOS) / **`Shift+Ctrl+R`** (Windows/Linux), or from the editor context menu / Command Palette (*C# GDF Tools: Toggle XML Doc Rendering*).
+
+When rendered:
+
+- the raw `///` markup and tags are hidden behind a clean left rule;
+- `<summary>`, `<param>`, `<typeparam>`, `<returns>`, `<value>`, `<exception>`, `<remarks>`, `<example>`, `<seealso>` and inline tags (`<see>`, `<paramref>`, `<c>`, `<b>`/`<i>`, lists) are formatted into readable text;
+- `<inheritdoc/>` is resolved to the actual inherited documentation from the base type or interface;
+- the editor stays fully editable — toggle again to return to the raw comment.
+
 ## Namespace Resolution
 
 The default mode is `hybrid`:
@@ -47,6 +58,8 @@ Available settings:
 - `csharpGdf.namespaceSource`: resolution strategy, one of `hybrid`, `asmdef`, `folder`
 - `csharpGdf.useFileScopedNamespace`: generate file-scoped namespaces
 - `csharpGdf.scriptableObjectCreateAssetMenu`: include `CreateAssetMenu` in generated `ScriptableObject` files
+- `csharpGdf.docRender.enabled`: enable the Toggle XML Doc Rendering command
+- `csharpGdf.docRender.color`: color used for rendered documentation and the left rule
 
 ## Why Use It
 

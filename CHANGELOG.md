@@ -2,6 +2,14 @@
 
 All notable changes to **C# GDF Tools** are documented in this file.
 
+## [2.2.0]
+
+### Render XML documentation comments
+- New command **Toggle XML Doc Rendering** (`Shift+Cmd+R` / `Shift+Ctrl+R`, editor context menu, Command Palette) renders `///` documentation in place while keeping the editor editable.
+- Hides raw `///` markup behind a continuous left rule and formats `<summary>`, `<param>`, `<typeparam>`, `<returns>`, `<value>`, `<exception>`, `<remarks>`, `<example>`, `<seealso>`, and inline tags (`<see>`, `<paramref>`, `<c>`, `<b>`/`<i>`, lists).
+- `<inheritdoc/>` is resolved to the inherited documentation from the base type or interface (via the C# language server, with a source-based fallback).
+- Configurable via `csharpGdf.docRender.enabled` and `csharpGdf.docRender.color`.
+
 ## [2.1.0]
 
 ### Create C# files from the Explorer
@@ -21,4 +29,5 @@ All notable changes to **C# GDF Tools** are documented in this file.
 - ScriptableObject files include a `[CreateAssetMenu]` attribute by default (toggle with `csharpGdf.scriptableObjectCreateAssetMenu`).
 - Optional file-scoped namespaces via `csharpGdf.useFileScopedNamespace`.
 
+[2.2.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.1.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
