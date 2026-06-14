@@ -40,7 +40,8 @@ When rendered:
 - the raw `///` markup and tags are hidden behind a clean left rule;
 - `<summary>`, `<param>`, `<typeparam>`, `<returns>`, `<value>`, `<exception>`, `<remarks>`, `<example>`, `<seealso>` and inline tags (`<see>`, `<paramref>`, `<c>`, `<b>`/`<i>`, lists) are formatted into readable text;
 - `<inheritdoc/>` is resolved to the actual inherited documentation from the base type or interface;
-- the editor stays fully editable — toggle again to return to the raw comment.
+- the editor stays fully editable — toggle again to return to the raw comment;
+- typing `///` to start a new documentation comment automatically switches back to edit mode.
 
 ## Namespace Resolution
 

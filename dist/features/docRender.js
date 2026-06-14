@@ -82,10 +82,17 @@ function registerDocRenderCommands(context) {
             manager.refresh(editor);
         }
     }));
-    // Keep the rendered overlay aligned with the code as the user edits.
+    // While rendered: editing a doc comment drops back to raw so it can be edited;
+    // any other edit just keeps the overlay aligned with the code.
     context.subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
         for (const editor of vscode.window.visibleTextEditors) {
-            if (editor.document === event.document) {
+            if (editor.document !== event.document) {
+                continue;
+            }
+            if (manager.isRendered(editor) && changeTouchesDocComment(event)) {
+                manager.disableRender(editor);
+            }
+            else {
                 manager.refresh(editor);
             }
         }
@@ -264,6 +271,17 @@ function createRenderManager() {
             renderedDocuments.add(key);
             applyEditor(editor);
         },
+        disableRender(editor) {
+            const key = editor.document.uri.toString();
+            if (!renderedDocuments.has(key)) {
+                return;
+            }
+            renderedDocuments.delete(key);
+            clearEditor(editor);
+        },
+        isRendered(editor) {
+            return renderedDocuments.has(editor.document.uri.toString());
+        },
         refresh(editor) {
             const key = editor.document.uri.toString();
             if (renderedDocuments.has(key)) {
@@ -279,6 +297,20 @@ function createRenderManager() {
             injectDecoration.dispose();
         }
     };
+}
+// True when an edit lands on a documentation line (typing "///", an inserted doc
+// block, or editing an existing comment) — used to drop out of render mode.
+function changeTouchesDocComment(event) {
+    for (const change of event.contentChanges) {
+        const line = change.range.start.line;
+        if (line < event.document.lineCount && DOC_LINE_PATTERN.test(event.document.lineAt(line).text)) {
+            return true;
+        }
+        if (change.text.includes("///")) {
+            return true;
+        }
+    }
+    return false;
 }
 function isInheritDocLine(rawInner) {
     return /^\s*<inheritdoc\b[^>]*\/?>\s*$/i.test(rawInner);

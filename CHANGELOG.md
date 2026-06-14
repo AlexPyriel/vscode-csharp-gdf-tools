@@ -2,6 +2,11 @@
 
 All notable changes to **C# GDF Tools** are documented in this file.
 
+## [2.5.0]
+
+### XML doc rendering
+- Typing `///` to start a documentation comment while rendering is active now automatically switches the document back to edit mode, so the comment (and any auto-generated block) can be written and seen as raw XML.
+
 ## [2.4.0]
 
 ### Namespace generation
@@ -44,6 +49,7 @@ All notable changes to **C# GDF Tools** are documented in this file.
 - ScriptableObject files include a `[CreateAssetMenu]` attribute by default (toggle with `csharpGdf.scriptableObjectCreateAssetMenu`).
 - Optional file-scoped namespaces via `csharpGdf.useFileScopedNamespace`.
 
+[2.5.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.4.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.3.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools
 [2.2.0]: https://marketplace.visualstudio.com/items?itemName=gdf.vscode-csharp-gdf-tools

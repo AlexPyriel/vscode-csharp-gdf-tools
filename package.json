@@ -3,7 +3,7 @@
   "displayName": "C# GDF Tools",
   "description": "Fast C# file creation with folder-matching namespaces, plus in-editor XML documentation rendering — for regular C# and Unity projects.",
   "icon": "GDF.png",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "publisher": "gdf",
   "author": "Game Dev Family",
   "license": "MIT",
